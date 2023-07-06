@@ -18,7 +18,7 @@ using ..Verlet: Verlet
     moving = zeros(Bool, N)
     iter = 0
     correcting = true
-    while correcting && iter < max_iter
+    while (correcting && iter < max_iter)
         iter += 1
         correcting = false
         @inbounds for ki in 1:K
@@ -46,6 +46,9 @@ using ..Verlet: Verlet
         moved .= moving
         moving .= false
     end
+    if iter == max_iter
+        @warn "Max RATTLE Reached."
+    end
 end
 
 
@@ -60,7 +63,7 @@ end
     moving = zeros(Bool, N)
     iter = 0
     correcting = true
-    while correcting && iter < max_iter
+    while (correcting && iter < max_iter)
         iter += 1
         correcting = false
         @inbounds for ki in 1:K
@@ -83,6 +86,9 @@ end
         end
         moved .= moving
         moving .= false
+    end
+    if iter == max_iter
+        @warn "Max RATTLE Reached."
     end
 end
 
